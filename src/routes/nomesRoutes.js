@@ -1,5 +1,6 @@
 import express from "express";
 import pessoas from "../model/modelNomes.js";
+import cidades from "../model/modelCidades.js";
 
 
 const router = express.Router()
@@ -30,5 +31,26 @@ router.post('/nomes',(req, res) =>{
       }
     })
   })
+
+router.get('/nomes/:id',(req, res) =>{
+    const id = req.params.id
+    pessoas.findById(id, (err, pessoas) => {     
+       
+        res.status(200).send(pessoas);
+      })
+    })
+
+router.get('/cidade', (req, res) =>{
+  cidades.find((err, cidade) =>{
+    res.status(200).json(cidade)
+  })
+})
+    
+router.post('/cidade', (req, res) =>{
+  let cidade = new cidades(req.body)
+  cidade.save(() =>{
+    res.status(201).send(cidade.toJSON())
+  })
+})
 
 export default router;
