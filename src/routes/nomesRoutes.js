@@ -4,6 +4,9 @@ import pessoas from "../model/modelNomes.js";
 
 const router = express.Router()
 
+router.get('/', (req, res) => {
+  res.status(200).send("API simples")
+})
 
 router.get('/nomes',(req, res) =>{
     pessoas.find((err, pessoas) => {
